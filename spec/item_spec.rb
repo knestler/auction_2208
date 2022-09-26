@@ -5,6 +5,9 @@ RSpec.describe Item do
   before :each do
     @item1 = Item.new('Chalkware Piggy Bank')
     @item2 = Item.new('Bamboo Picture Frame')
+    @item3 = Item.new('Homemade Chocolate Chip Cookies')
+    @item4 = Item.new('2 Days Dogsitting')
+    @item5 = Item.new('Forever Stamps')
   end 
 
   it 'exitst' do 
@@ -14,6 +17,16 @@ RSpec.describe Item do
 
   it 'has attributes' do
     expect(@item1.name).to eq("Chalkware Piggy Bank")
+  end
+
+  it 'can add items and bids' do 
+    expect(@item1.bids).to eq({})
+
+    @item1.add_bid(@attendee2, 20)
+    @item1.add_bid(@attendee1, 22)
+    expect(@item1.bids).to eq({@attendee2 => 20, @attendee1 => 22})
+
+    expect(@item1.current_high_bid).to eq(22)
   end
 
 end

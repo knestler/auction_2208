@@ -32,4 +32,24 @@ class Auction
     revenue.sum
   end
 
+  def bidders
+   bidders = []
+    items.each do |item|
+      item.bids.each do |bidder, item|
+        bidders << bidder.name
+      end
+    end 
+    bidders.uniq
+  end
+
+  def bidder_info
+    info = Hash.new {|h,k| h[k] = {budget: 0, items: []}}
+    @items.each do |item|
+      item.bids.each do |bidder, amount|
+        info[bidder][:budget] = bidder.budget
+        info[bidder][:items] << item
+      end
+    end
+    info
+  end
 end
